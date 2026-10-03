@@ -35,12 +35,23 @@ if "proteins" in st.session_state:
     st.write("Selected accession:", selected_accession)
     if st.button("View Structure"):
         structure_url = get_structure(selected_accession)
-        st.write("Structure downloaded!")
+        #st.write("Structure downloaded!")
 
-        components.iframe(
-        "http://localhost:8000/molstar/viewer.html",
+        with open("protein_structure.pdb", "r") as file:
+            pdb_data = file.read()
+
+        with open("molstar/viewer.html", "r") as file:
+            viewer_html = file.read()
+
+        viewer_html = viewer_html.replace(
+            "PDB_DATA_PLACEHOLDER",
+            pdb_data.replace("`", "\\`")
+        )
+
+        components.html(
+        viewer_html,
         height=650
-    )
+        )
 
     #st.write("Protein information:")
     #st.write(protein_info)

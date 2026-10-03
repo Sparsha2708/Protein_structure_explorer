@@ -19,16 +19,16 @@
 <div id="app"></div>
 
 <script>
+    const pdbData = `PDB_DATA_PLACEHOLDER`;
+
     molstar.Viewer.create("app", {
         layoutIsExpanded: false,
         layoutShowControls: false
     }).then(viewer => {
-
-        viewer.loadStructureFromUrl(
-            "../protein_structure.pdb",
+        viewer.loadStructureFromData(
+            pdbData,
             "pdb"
         );
-
     });
 </script>
 
